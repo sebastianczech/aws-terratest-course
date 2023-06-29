@@ -39,6 +39,10 @@ In this course, you will:
 4. TBD-step-4-name
 5. TBD-step-5-name
 
+## Help
+
+* [GitHub Skills Quickstart Guide](https://skills.github.com/quickstart#writing-your-actions-workflow-files)
+
 ### How to start this course
 
 <!-- For start course, run in JavaScript:
