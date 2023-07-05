@@ -9,9 +9,9 @@
   Add your open source license, GitHub uses the MIT license.
 -->
 
-# TBD-course-name
+# Test IaC on AWS
 
-_TBD-course-description_
+_Learn how to test **Infrastructure as Code** on AWS cloud with Terratest._
 
 </header>
 
@@ -23,13 +23,13 @@ _TBD-course-description_
 
 ## Welcome
 
-TBD-welcome-paragraph
+How you ever manually tested infrastructure deployed on AWS ? Is your IaC executed in pipeline ? Do you need automated way to prove, that code, which you prepared, is working ? If you've answere _yes_ for any of this questions, then that course could help you with automating tests of the infrastructure, which you can use in your pipeline and which will help in proving, that code is working as expected.
 
-- **Who is this for**: TBD-audience.
-- **What you'll learn**: TBD-objective.
-- **What you'll build**: TBD-result.
-- **Prerequisites**: TBD-prerequisites.
-- **How long**: This course takes less than TBD-duration to complete.
+- **Who is this for**: DevOps engineers, Cloud engineers.
+- **What you'll learn**: Build basic tests for IaC on AWS
+- **What you'll build**: Tests for simple IaC.
+- **Prerequisites**: Basic knowledge about AWS and Terraform.
+- **How long**: This course takes less than 1 hour to complete.
 
 In this course, you will:
 
@@ -38,10 +38,6 @@ In this course, you will:
 3. TBD-step-3-name
 4. TBD-step-4-name
 5. TBD-step-5-name
-
-## Help
-
-* [GitHub Skills Quickstart Guide](https://skills.github.com/quickstart#writing-your-actions-workflow-files)
 
 ### How to start this course
 
