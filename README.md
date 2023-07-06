@@ -43,16 +43,16 @@ In this course, you will:
 
 <!-- For start course, run in JavaScript:
 'https://github.com/new?' + new URLSearchParams({
-  template_owner: 'TBD-organization',
-  template_name: 'TBD-course-name',
+  template_owner: 'sebastianczech',
+  template_name: 'aws-terratest-course',
   owner: '@me',
-  name: 'TBD-organization-TBD-course-name',
-  description: 'My clone repository',
+  name: 'my-aws-terratest-course',
+  description: 'My clone repository of aws-terratest-course',
   visibility: 'public',
 }).toString()
 -->
 
-[![start-course](https://user-images.githubusercontent.com/1221423/235727646-4a590299-ffe5-480d-8cd5-8194ea184546.svg)](TBD-generate)
+[![start-course](https://user-images.githubusercontent.com/1221423/235727646-4a590299-ffe5-480d-8cd5-8194ea184546.svg)](https://github.com/new?template_owner=sebastianczech&template_name=aws-terratest-course&owner=%40me&name=my-aws-terratest-course&description=My+clone+repository+of+aws-terratest-course&visibility=public)
 
 1. Right-click **Start course** and open the link in a new tab.
 2. In the new tab, most of the prompts will automatically fill in for you.
