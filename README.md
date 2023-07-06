@@ -33,11 +33,11 @@ How you ever manually tested infrastructure deployed on AWS ? Is your IaC execut
 
 In this course, you will:
 
-1. TBD-step-1-name
-2. TBD-step-2-name
-3. TBD-step-3-name
-4. TBD-step-4-name
-5. TBD-step-5-name
+1. Check out architecture diagram and fill missing parts in Terraform code to deploy infrastructure.
+2. Extend skeleton with Terratest to check Terraform output values.
+3. Verify if Terraform configuration is idempotent.
+4. Override variables values defined in `terraform.tfvars`
+5. Destroy whole infrastructure after finishing tests.
 
 ### How to start this course
 
@@ -70,8 +70,8 @@ In this course, you will:
 
 ---
 
-Get help: [TBD-support](TBD-support-link) &bull; [Review the GitHub status page](https://www.githubstatus.com/)
+Get help: [Contact with author](https://github.com/sebastianczech) &bull; [Review the GitHub status page](https://www.githubstatus.com/)
 
-&copy; 2023 TBD-copyright-holder &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
+&copy; 2023 Sebastian Czech &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
 
 </footer>
