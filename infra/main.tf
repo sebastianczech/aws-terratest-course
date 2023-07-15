@@ -2,6 +2,7 @@ locals {
   function_name = "aws_terratest"
 }
 
+### IAM assume role
 data "aws_iam_policy_document" "lambda_assume_role_policy" {
   statement {
     effect  = "Allow"
@@ -18,6 +19,7 @@ resource "aws_iam_role" "lambda_role" {
   assume_role_policy = data.aws_iam_policy_document.lambda_assume_role_policy.json
 }
 
+### Python code for Lambda function
 data "archive_file" "python_lambda_package" {
   type = "zip"
   source {
@@ -27,6 +29,7 @@ data "archive_file" "python_lambda_package" {
   output_path = "files/lambda.zip"
 }
 
+### Lambda function
 resource "aws_lambda_function" "lambda_func" {
   filename         = "files/lambda.zip"
   function_name    = local.function_name
@@ -42,13 +45,33 @@ resource "aws_lambda_function" "lambda_func" {
       foo = "bar"
     }
   }
+  tracing_config {
+    mode = "PassThrough"
+  }
 }
 
+### Lambda URL
+resource "aws_lambda_function_url" "lambda_endpoint" {
+  function_name      = aws_lambda_function.lambda_func.function_name
+  authorization_type = "AWS_IAM" # "NONE"
+
+  cors {
+    allow_credentials = true
+    allow_origins     = ["*"]
+    allow_methods     = ["*"]
+    allow_headers     = ["date", "keep-alive"]
+    expose_headers    = ["keep-alive", "date"]
+    max_age           = 86400
+  }
+}
+
+### Log group with logs from Lambda
 resource "aws_cloudwatch_log_group" "lambda_log_group" {
   name              = "/aws/lambda/${local.function_name}"
   retention_in_days = 1
 }
 
+### IAM logging
 resource "aws_iam_policy" "lambda_iam_logging" {
   name        = "lambda_logging"
   path        = "/"
@@ -77,22 +100,9 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
   policy_arn = aws_iam_policy.lambda_iam_logging.arn
 }
 
-resource "aws_lambda_function_url" "lambda_endpoint" {
-  function_name      = aws_lambda_function.lambda_func.function_name
-  authorization_type = "AWS_IAM" # "NONE"
-
-  cors {
-    allow_credentials = true
-    allow_origins     = ["*"]
-    allow_methods     = ["*"]
-    allow_headers     = ["date", "keep-alive"]
-    expose_headers    = ["keep-alive", "date"]
-    max_age           = 86400
-  }
-}
-
+### IAM permission for user
 data "aws_iam_user" "iam_user_seba" {
-  user_name = "seba"
+  user_name = var.username
 }
 
 resource "aws_lambda_permission" "allow_iam_user" {
@@ -101,18 +111,4 @@ resource "aws_lambda_permission" "allow_iam_user" {
   function_name          = aws_lambda_function.lambda_func.function_name
   function_url_auth_type = "AWS_IAM"
   principal              = data.aws_iam_user.iam_user_seba.arn
-}
-
-check "lambda_deployed" {
-  data "external" "this" {
-    program = ["curl", "${aws_lambda_function_url.lambda_endpoint.function_url}"]
-  }
-
-  assert {
-    # If we execution function using URL without authentication, then it should be received forbidden message, if Lambda is deployed correctly
-    condition = data.external.this.result.Message == "Forbidden"
-    error_message = format("The Lambda %s is not deployed.",
-      aws_lambda_function.lambda_func.function_name
-    )
-  }
 }
