@@ -36,9 +36,10 @@ resource "aws_lambda_function" "lambda_func" {
   role             = aws_iam_role.lambda_role.arn
   source_code_hash = filebase64sha256("files/lambda.zip")
 
-  runtime = "python3.9"
-  handler = "lambda.lambda_handler"
-  timeout = 10
+  runtime                        = "python3.9"
+  handler                        = "lambda.lambda_handler"
+  timeout                        = 10
+  reserved_concurrent_executions = 10
 
   environment {
     variables = {

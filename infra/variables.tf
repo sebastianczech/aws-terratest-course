@@ -4,6 +4,6 @@ variable "region" {
 }
 
 variable "username" {
-  type = string
+  type    = string
   default = "seba"
 }
