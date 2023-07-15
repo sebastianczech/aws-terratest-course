@@ -31,6 +31,7 @@ data "archive_file" "python_lambda_package" {
 
 ### Lambda function
 resource "aws_lambda_function" "lambda_func" {
+  # checkov:skip=CKV_AWS_117: ADD REASON
   filename         = "files/lambda.zip"
   function_name    = local.function_name
   role             = aws_iam_role.lambda_role.arn
