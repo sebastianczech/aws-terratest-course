@@ -31,11 +31,13 @@ data "archive_file" "python_lambda_package" {
 
 ### Lambda function
 resource "aws_lambda_function" "lambda_func" {
-  # checkov:skip=CKV_AWS_117: ADD REASON
+  # checkov:skip=CKV_AWS_116: Lambda is deployed only in lab environment - it's not production environment, where AWS Lambda function should be configured inside a VPC
+  # checkov:skip=CKV_AWS_117: For simple Lambda used only in lab environment there is no need to investigate errors or failed requests to the connected Lambda function
   filename         = "files/lambda.zip"
   function_name    = local.function_name
   role             = aws_iam_role.lambda_role.arn
   source_code_hash = filebase64sha256("files/lambda.zip")
+  kms_key_arn      = data.aws_kms_key.lambda_kms.arn
 
   runtime                        = "python3.9"
   handler                        = "lambda.lambda_handler"
@@ -50,6 +52,10 @@ resource "aws_lambda_function" "lambda_func" {
   tracing_config {
     mode = "PassThrough"
   }
+}
+
+data "aws_kms_key" "lambda_kms" {
+  key_id = "alias/aws/lambda"
 }
 
 ### Lambda URL
@@ -69,6 +75,7 @@ resource "aws_lambda_function_url" "lambda_endpoint" {
 
 ### Log group with logs from Lambda
 resource "aws_cloudwatch_log_group" "lambda_log_group" {
+  # checkov:skip=CKV_AWS_158: For lab environment there is no need to encrypt logs
   name              = "/aws/lambda/${local.function_name}"
   retention_in_days = 1
 }
