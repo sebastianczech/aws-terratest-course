@@ -39,6 +39,19 @@ In this course, you will:
 4. Override variables values defined in `terraform.tfvars`
 5. Destroy whole infrastructure after finishing tests.
 
+### Commands
+
+1. Terrform:
+   1. [Configure authentication for AWS provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#authentication-and-configuration)
+   2. ``terraform init``
+   3. ``terraform apply``
+   4. ``terraform apply -destry``
+2. Terratest:
+   1. [Read Terratest quickstart](https://terratest.gruntwork.io/docs/getting-started/quick-start/)
+   2. ``go mod init github.com/sebastianczech/aws-terratest-course``
+   3. ``go mod tidy``
+   4. ``go test -v -timeout 30m``
+
 ### How to start this course
 
 <!-- For start course, run in JavaScript:
