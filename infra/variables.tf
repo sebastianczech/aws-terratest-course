@@ -7,3 +7,8 @@ variable "username" {
   type    = string
   default = "seba"
 }
+
+variable "prefix" {
+  type    = string
+  default = ""
+}

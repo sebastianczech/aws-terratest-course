@@ -1,5 +1,5 @@
 locals {
-  function_name = "aws_terratest"
+  function_name = "${var.prefix}_aws_lambda"
 }
 
 ### IAM assume role
@@ -15,7 +15,7 @@ data "aws_iam_policy_document" "lambda_assume_role_policy" {
 }
 
 resource "aws_iam_role" "lambda_role" {
-  name               = "lambda_role"
+  name               = "${var.prefix}_lambda_role"
   assume_role_policy = data.aws_iam_policy_document.lambda_assume_role_policy.json
 }
 
@@ -82,7 +82,7 @@ resource "aws_cloudwatch_log_group" "lambda_log_group" {
 
 ### IAM logging
 resource "aws_iam_policy" "lambda_iam_logging" {
-  name        = "lambda_logging"
+  name        = "${var.prefix}_lambda_logging"
   path        = "/"
   description = "IAM policy for logging from Lambda"
 
