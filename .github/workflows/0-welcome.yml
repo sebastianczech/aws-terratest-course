@@ -31,9 +31,20 @@ jobs:
     outputs:
       current_step: ${{ steps.get_step.outputs.current_step }}
 
+  check_step1_main_tf:
+    name: Check missing parts in Terraform code
+    needs: [get_current_step]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - id: check_step1_main_tf
+        run: |
+          grep "aws_lambda_function.lambda_func.function_name2" infra/main.tf
+
   on_start:
     name: On start
-    needs: get_current_step
+    needs: [get_current_step, check_step1_main_tf]
 
     # We will only run this action when:
     # 1. This repository isn't the template repository.
