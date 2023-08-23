@@ -39,6 +39,10 @@ In this course, you will:
 4. Override variables values defined in `terraform.tfvars`
 5. Destroy whole infrastructure after finishing tests.
 
+### Architecture
+
+![](design/architecture_diagram.png)
+
 ### Commands
 
 1. Terrform:
