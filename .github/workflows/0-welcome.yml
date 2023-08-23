@@ -40,12 +40,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - id: check_step1_main_tf
-        name: Check `infra/main.tf`
+        name: Check infra/main.tf
         run: |
           grep "aws_lambda_function.lambda_func.function_name2" infra/main.tf
       - name: Show error message
         if: failure()
-        run: echo "::error file=infra/main.tf,line=1::Use `aws_lambda_function.lambda_func.function_name` for `function_name`"
+        run: echo "::error file=infra/main.tf,line=1::Use aws_lambda_function.lambda_func.function_name for function_name"
+
+  # check_step2
+  # check_step3
+  # check_step4
+  # check_step5
 
   on_start:
     name: On start
