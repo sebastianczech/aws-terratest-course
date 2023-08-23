@@ -42,8 +42,8 @@ jobs:
       - id: check_step1_main_tf
         name: Check infra/main.tf
         run: |
-          grep "aws_lambda_function.lambda_func.function_name2" infra/main.tf
-      - name: Show error message
+          grep "aws_lambda_function.lambda_func.function_name" infra/main.tf
+      - name: Hint
         if: failure()
         run: echo "::error file=infra/main.tf,line=1::Use aws_lambda_function.lambda_func.function_name for function_name"
 
