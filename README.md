@@ -47,14 +47,16 @@ In this course, you will:
 
 1. Terrform:
    1. [Configure authentication for AWS provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#authentication-and-configuration)
-   2. ``terraform init``
-   3. ``terraform apply``
-   4. ``terraform apply -destry``
+   2. ``cd infra``
+   3. ``terraform init``
+   4. ``terraform apply``
+   5. ``terraform apply -destroy``
 2. Terratest:
    1. [Read Terratest quickstart](https://terratest.gruntwork.io/docs/getting-started/quick-start/)
-   2. ``go mod init github.com/sebastianczech/aws-terratest-course``
-   3. ``go mod tidy``
-   4. ``go test -v -timeout 30m``
+   2. ``cd test``
+   3. ``go mod init github.com/sebastianczech/aws-terratest-course``
+   4. ``go mod tidy``
+   5. ``go test -v -timeout 30m``
 
 ### How to start this course
 
