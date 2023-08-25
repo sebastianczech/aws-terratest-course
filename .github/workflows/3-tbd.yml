@@ -34,7 +34,7 @@ jobs:
 
   check_step3_terraform_idempotent:
     name: Verify if Terraform configuration is idempotent
-    needs: check_step2_terratest_output
+    needs: get_current_step
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -49,7 +49,7 @@ jobs:
 
   after_check_solution:
     name: Go to next step after checking solution
-    needs: get_current_step
+    needs: check_step3_terraform_idempotent
 
     # We will only run this action when:
     # 1. This repository isn't the template repository.

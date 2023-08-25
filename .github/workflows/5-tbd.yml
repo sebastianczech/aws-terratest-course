@@ -34,7 +34,7 @@ jobs:
 
   check_step5_terratest_defer_destroy:
     name: Check if there is defer with destroy
-    needs: check_step4_override_variables_values
+    needs: get_current_step
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -49,7 +49,7 @@ jobs:
 
   after_check_solution:
     name: Go to next step after checking solution
-    needs: get_current_step
+    needs: check_step5_terratest_defer_destroy
 
     # We will only run this action when:
     # 1. This repository isn't the template repository.

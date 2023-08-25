@@ -49,7 +49,7 @@ jobs:
 
   after_check_solution:
     name: Go to next step after checking solution
-    needs: get_current_step
+    needs: check_step1_main_tf
 
     # We will only run this action when:
     # 1. This repository isn't the template repository.
