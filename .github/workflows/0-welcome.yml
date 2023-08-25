@@ -32,81 +32,6 @@ jobs:
     outputs:
       current_step: ${{ steps.get_step.outputs.current_step }}
 
-  check_step1_main_tf:
-    name: Check missing parts in Terraform code
-    needs: get_current_step
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - id: check_step1_main_tf
-        name: Check infra/main.tf
-        run: |
-          grep "aws_lambda_function.lambda_func.function_name" infra/main.tf
-      - name: Hint
-        if: failure()
-        run: echo "::error file=infra/main.tf,line=1::Use aws_lambda_function.lambda_func.function_name for function_name"
-
-  check_step2_terratest_output:
-    name: Check in Terratest output values
-    needs: check_step1_main_tf
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - id: check_step2_main_test_go
-        name: Check test/main_test.go
-        run: |
-          grep 'output := terraform.Output(t, terraformOptions, "lambda_url")' test/main_test.go
-      - name: Hint
-        if: failure()
-        run: echo "::error file=test/main_test.go,line=1::Use lambda_url as name for Output function"
-
-  check_step3_terraform_idempotent:
-    name: Verify if Terraform configuration is idempotent
-    needs: check_step2_terratest_output
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - id: check_step1_main_tf
-        name: Check test/main_test.go
-        run: |
-          grep 'terraform.InitAndApplyAndIdempotent(t, terraformOptions)' test/main_test.go
-      - name: Hint
-        if: failure()
-        run: echo "::error file=test/main_test.go,line=1::Use function InitAndApplyAndIdempotent()"
-  
-  check_step4_override_variables_values:
-    name: Check if variables values were overridden
-    needs: check_step3_terraform_idempotent
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - id: check_step1_main_tf
-        name: Check test/main_test.go
-        run: |
-          grep '"prefix": "terratest",' test/main_test.go
-      - name: Hint
-        if: failure()
-        run: echo "::error file=test/main_test.go,line=1::Use terratest as value for variable prefix"
-
-  check_step5_terratest_defer_destroy:
-    name: CHeck if there is defer with destroy
-    needs: check_step4_override_variables_values
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - id: check_step1_main_tf
-        name: Check test/main_test.go
-        run: |
-          grep 'defer terraform.Destroy(t, terraformOptions)' test/main_test.go
-      - name: Hint
-        if: failure()
-        run: echo "::error file=test/main_test.go,line=1::Use terraform.Destroy() function"
-
   on_start:
     name: On start
     needs: check_step5_terratest_defer_destroy
@@ -137,4 +62,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           from_step: 0
           to_step: 1
-          branch_name: 1-infra
+          branch_name: step1-infra

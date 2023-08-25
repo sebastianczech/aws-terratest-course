@@ -1,14 +1,16 @@
-name: Step 3, TBD-step-3-name
+name: Step 3, Verify if Terraform configuration is idempotent
 
-# This step triggers after TBD-step-3-event-desc.
+# This step triggers after push change into branch `step3-idempotent`
 # This workflow updates from step 3 to step 4.
 
-# This will run every time we TBD-step-3-event-desc.
+# This will run every time we create push a commit to `step3-idempotent`.
 # Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
   workflow_dispatch:
   # Add events that trigger this workflow.
-  # TBD-step-3-event:
+  push:
+    branches:
+      - step3-idempotent
 
 # Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
@@ -30,8 +32,23 @@ jobs:
     outputs:
       current_step: ${{ steps.get_step.outputs.current_step }}
 
-  on_TBD-step-3-event:
-    name: On TBD-step-3-event
+  check_step3_terraform_idempotent:
+    name: Verify if Terraform configuration is idempotent
+    needs: check_step2_terratest_output
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - id: check_step1_main_tf
+        name: Check test/main_test.go
+        run: |
+          grep 'terraform.InitAndApplyAndIdempotent(t, terraformOptions)' test/main_test.go
+      - name: Hint
+        if: failure()
+        run: echo "::error file=test/main_test.go,line=1::Use function InitAndApplyAndIdempotent()"
+
+  after_check_solution:
+    name: Go to next step after checking solution
     needs: get_current_step
 
     # We will only run this action when:
@@ -53,8 +70,6 @@ jobs:
         with:
           fetch-depth: 0 # Let's get all the branches.
 
-      # TBD-step-3-additional-steps
-
       # In README.md, switch step 3 for step 4.
       - name: Update to step 4
         uses: skills/action-update-step@v2
@@ -62,4 +77,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           from_step: 3
           to_step: 4
-          branch_name: tbd-branch-name
+          branch_name: step4-override

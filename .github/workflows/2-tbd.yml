@@ -1,14 +1,16 @@
-name: Step 2, TBD-step-2-name
+name: Step 2, Check in Terratest output values
 
-# This step triggers after TBD-step-2-event-desc.
+# This step triggers after push change into branch `step2-output`
 # This workflow updates from step 2 to step 3.
 
-# This will run every time we TBD-step-2-event-desc.
+# This will run every time we create push a commit to `step2-output`.
 # Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
   workflow_dispatch:
   # Add events that trigger this workflow.
-  # TBD-step-2-event:
+  push:
+    branches:
+      - step2-output
 
 # Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
@@ -30,8 +32,23 @@ jobs:
     outputs:
       current_step: ${{ steps.get_step.outputs.current_step }}
 
-  on_TBD-step-2-event:
-    name: On TBD-step-2-event
+  check_step2_terratest_output:
+    name: Check in Terratest output values
+    needs: check_step1_main_tf
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - id: check_step2_main_test_go
+        name: Check test/main_test.go
+        run: |
+          grep 'output := terraform.Output(t, terraformOptions, "lambda_url")' test/main_test.go
+      - name: Hint
+        if: failure()
+        run: echo "::error file=test/main_test.go,line=1::Use lambda_url as name for Output function"
+
+  after_check_solution:
+    name: Go to next step after checking solution
     needs: get_current_step
 
     # We will only run this action when:
@@ -53,8 +70,6 @@ jobs:
         with:
           fetch-depth: 0 # Let's get all the branches.
 
-      # TBD-step-2-additional-steps
-
       # In README.md, switch step 2 for step 3.
       - name: Update to step 3
         uses: skills/action-update-step@v2
@@ -62,4 +77,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           from_step: 2
           to_step: 3
-          branch_name: tbd-branch-name
+          branch_name: step3-idempotent

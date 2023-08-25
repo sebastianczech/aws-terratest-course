@@ -1,14 +1,16 @@
-name: Step 1, TBD-step-1-name
+name: Step 1, Check missing parts in Terraform code
 
-# This step triggers after TBD-step-1-event-desc.
+# This step triggers after push change into branch `step1-infra`
 # This workflow updates from step 1 to step 2.
 
-# This will run every time we TBD-step-1-event-desc.
+# This will run every time we create push a commit to `step1-infra`.
 # Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
   workflow_dispatch:
   # Add events that trigger this workflow.
-  # TBD-step-1-event:
+  push:
+    branches:
+      - step1-infra
 
 # Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
@@ -30,8 +32,23 @@ jobs:
     outputs:
       current_step: ${{ steps.get_step.outputs.current_step }}
 
-  on_TBD-step-1-event:
-    name: On TBD-step-1-event
+  check_step1_main_tf:
+    name: Check missing parts in Terraform code
+    needs: get_current_step
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - id: check_step1_main_tf
+        name: Check infra/main.tf
+        run: |
+          grep "aws_lambda_function.lambda_func.function_name" infra/main.tf
+      - name: Hint
+        if: failure()
+        run: echo "::error file=infra/main.tf,line=1::Use aws_lambda_function.lambda_func.function_name for function_name"
+
+  after_check_solution:
+    name: Go to next step after checking solution
     needs: get_current_step
 
     # We will only run this action when:
@@ -53,8 +70,6 @@ jobs:
         with:
           fetch-depth: 0 # Let's get all the branches.
 
-      # TBD-step-1-additional-steps
-
       # In README.md, switch step 1 for step 2.
       - name: Update to step 2
         uses: skills/action-update-step@v2
@@ -62,4 +77,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           from_step: 1
           to_step: 2
-          branch_name: tbd-branch-name
+          branch_name: step2-output

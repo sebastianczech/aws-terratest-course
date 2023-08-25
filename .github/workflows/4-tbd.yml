@@ -1,14 +1,16 @@
-name: Step 4, TBD-step-4-name
+name: Step 4, Check if variables values were overridden
 
-# This step triggers after TBD-step-4-event-desc.
+# This step triggers after push change into branch `step4-override`
 # This workflow updates from step 4 to step 5.
 
-# This will run every time we TBD-step-4-event-desc.
+# This will run every time we create push a commit to `step4-override`.
 # Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
   workflow_dispatch:
   # Add events that trigger this workflow
-  # TBD-step-4-event:
+  push:
+    branches:
+      - step4-override
 
 # Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
@@ -30,8 +32,23 @@ jobs:
     outputs:
       current_step: ${{ steps.get_step.outputs.current_step }}
 
-  on_TBD-step-4-event:
-    name: On TBD-step-4-event
+  check_step4_override_variables_values:
+    name: Check if variables values were overridden
+    needs: check_step3_terraform_idempotent
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - id: check_step1_main_tf
+        name: Check test/main_test.go
+        run: |
+          grep '"prefix": "terratest",' test/main_test.go
+      - name: Hint
+        if: failure()
+        run: echo "::error file=test/main_test.go,line=1::Use terratest as value for variable prefix"
+
+  after_check_solution:
+    name: Go to next step after checking solution
     needs: get_current_step
 
     # We will only run this action when:
@@ -53,8 +70,6 @@ jobs:
         with:
           fetch-depth: 0 # Let's get all the branches.
 
-      # TBD-step-4-additional-steps
-
       # In README.md, switch step 4 for step 5.
       - name: Update to step 5
         uses: skills/action-update-step@v2
@@ -62,4 +77,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           from_step: 4
           to_step: 5
-          branch_name: tbd-branch-name
+          branch_name: step5-destroy

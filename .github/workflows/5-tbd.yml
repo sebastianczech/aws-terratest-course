@@ -1,14 +1,16 @@
-name: Step 5, TBD-step-5-name
+name: Step 5, Check if there is defer with destroy
 
-# This step triggers after TBD-step-5-event-desc.
+# This step triggers after push change into branch `step5-destroy`
 # This workflow updates from step 5 to step X.
 
-# This will run every time we TBD-step-5-event-desc.
+# This will run every time we create push a commit to `step5-destroy`.
 # Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
   workflow_dispatch:
   # Add events that trigger this workflow.
-  # TBD-step-5-event:
+  push:
+    branches:
+      - step5-destroy
 
 # Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
@@ -30,8 +32,23 @@ jobs:
     outputs:
       current_step: ${{ steps.get_step.outputs.current_step }}
 
-  on_TBD-step-5-event:
-    name: On TBD-step-5-event
+  check_step5_terratest_defer_destroy:
+    name: Check if there is defer with destroy
+    needs: check_step4_override_variables_values
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - id: check_step1_main_tf
+        name: Check test/main_test.go
+        run: |
+          grep 'defer terraform.Destroy(t, terraformOptions)' test/main_test.go
+      - name: Hint
+        if: failure()
+        run: echo "::error file=test/main_test.go,line=1::Use terraform.Destroy() function"
+
+  after_check_solution:
+    name: Go to next step after checking solution
     needs: get_current_step
 
     # We will only run this action when:
@@ -53,8 +70,6 @@ jobs:
         with:
           fetch-depth: 0 # Let's get all the branches.
 
-      # TBD-step-5-additional-steps
-
       # In README.md, switch step 5 for step X.
       - name: Update to step X
         uses: skills/action-update-step@v2
@@ -62,4 +77,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           from_step: 5
           to_step: X
-          branch_name: tbd-branch-name
+          branch_name: finish
