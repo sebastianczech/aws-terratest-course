@@ -29,8 +29,8 @@ TBD-step-1-information
 11. Commit changes using command: ``git commit -am "Finish step 1"``.
 12. Push changes using command: ``git push``.
 13. Wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically update to the next step, if your solution is correct. 
-14. If next step is not automatially updated, verify results in ``Actions`` tab in GitHub, fix code and repeat steps 9-13 one more time.
+14. If next step is not automatially updated, verify results in ``Actions`` tab in GitHub, fix code and repeat steps 8-13 one more time.
 
 ### Architecture
 
-![](../../design/architecture_diagram.png)
+![](design/architecture_diagram.png)
