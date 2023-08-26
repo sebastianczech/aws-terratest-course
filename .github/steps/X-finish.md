@@ -5,9 +5,7 @@
 
 ## Finish
 
-_Congratulations friend, you've completed this course!_
-
-<img src=TBD-celebrate-image alt=celebrate width=300 align=right>
+_Congratulations friend, you've completed this course! :tada:_
 
 Here's a recap of all the tasks you've accomplished in your repository:
 
