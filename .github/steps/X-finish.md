@@ -9,12 +9,13 @@ _Congratulations friend, you've completed this course! :tada:_
 
 Here's a recap of all the tasks you've accomplished in your repository:
 
-- TBD-recap.
+- finished provided Terraform code, which deployes Lambda in AWS
+- prepare tests, which are checking:
+  - output values from Terraform
+  - idempotence of the infrastructure
+  - Terraform code after overriding variables values
 
 ### What's next?
 
-- TBD-continue.
-- [We'd love to hear what you thought of this course](TBD-feedback-link).
-- [Take another TBD-organization Course](https://github.com/TBD-organization).
-- [Read the GitHub Getting Started docs](https://docs.github.com/en/get-started).
-- To find projects to contribute to, check out [GitHub Explore](https://github.com/explore).
+- I'd love to hear what you thought of this course e.g [publish post on LinkedIn](https://www.linkedin.com/in/sebastian-czech/).
+- If you are interested in more content from me, [check my DevOps resources](https://sebastianczech.github.io/) or [see my repositories on GitHub](https://github.com/sebastianczech).

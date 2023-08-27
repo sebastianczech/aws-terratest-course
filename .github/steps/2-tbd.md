@@ -6,11 +6,9 @@
 
 ## Step 2: Check in Terratest output values
 
-_You did TBD-step-1-name! :tada:_
+_You did step 1 and you updated Terraform code correctly! :tada:_
 
-TBD-step-2-information
-
-**What is _TBD-term-2_**: TBD-definition-2
+**What is the goal of step 2 ?**: In second step we are going to work on first test in Terratest and we will check outputs from Terraform.
 
 ### :keyboard: Activity: Check in Terratest output values
 
