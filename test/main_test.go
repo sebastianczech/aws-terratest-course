@@ -14,7 +14,9 @@ func TestAwsInfra(t *testing.T) {
 		// Set the path to the Terraform code that will be tested.
 		TerraformDir: "../infra",
 		// Variables to pass to our Terraform code using -var options
-		Vars: map[string]interface{}{},
+		Vars: map[string]interface{}{
+			"prefix": "terratest",
+		},
 	})
 
 	// Run "terraform init" and "terraform apply". Fail the test if there are any errors.
