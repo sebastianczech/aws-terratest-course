@@ -117,7 +117,6 @@ data "aws_iam_user" "iam_user_seba" {
 resource "aws_lambda_permission" "allow_iam_user" {
   statement_id           = "AllowExecutionForIamUser"
   action                 = "lambda:InvokeFunctionUrl"
-  function_name          = TODO
   function_url_auth_type = "AWS_IAM"
   principal              = data.aws_iam_user.iam_user_seba.arn
 }
