@@ -60,7 +60,6 @@ data "aws_kms_key" "lambda_kms" {
 
 ### Lambda URL
 resource "aws_lambda_function_url" "lambda_endpoint" {
-  function_name      = aws_lambda_function.lambda_func.function_name
   authorization_type = "AWS_IAM" # "NONE"
 
   cors {

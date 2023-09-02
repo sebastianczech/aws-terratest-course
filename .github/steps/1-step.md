@@ -21,7 +21,7 @@ _Welcome to "aws-terratest-course"! :wave:_
 5. Go to ``infra`` folder using command: ``cd infra``.
 6. Initialize Terraform by command: ``terraform init``.
 7. Review arguments for [aws_lambda_function_url](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function_url.html) resource.
-8. Define ``function_name`` for resource ``aws_lambda_function_url``.
+8. Define ``function_name`` for resource ``aws_lambda_function_url`` and ``aws_lambda_permission``.
 9. Try to deploy infrastructure using command: ``terraform apply``.
 10. If succeeded, destroy infrastructure using command: ``terraform apply -destroy``.
 11. Commit changes using command: ``git commit -am "Finish step 1"``.
