@@ -13,7 +13,7 @@ _Nicely done with testing idempotence of the infrastructure! :partying_face:_
 ### :keyboard: Activity: Check if variables values were overridden
 
 1. [Read Terratest documentation about defining values for variables](https://terratest.gruntwork.io/docs/testing-best-practices/namespacing/)
-2. Checkout remote branch using command: ``git checkout -b step4-override origin/step4-override``.
+2. Get latest ``main`` branch: ``git pull``.
 3. Go to ``test`` folder using command: ``cd test``
 4. Define ``map[string]interface{}`` for ``Vars`` in ``terraformOptions``, where for variable ``prefix`` please set value ``terratest``
 5. Execute tests using command: ``go test -v -timeout 30m``

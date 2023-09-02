@@ -13,7 +13,7 @@ _Almost there with Terratest! :sparkles:_
 ### :keyboard: Activity: Check if there is defer with destroy
 
 1. [Read Terratest documentation about cleanup](https://terratest.gruntwork.io/docs/testing-best-practices/cleanup/)
-2. Checkout remote branch using command: ``git checkout -b step5-destroy origin/step5-destroy``.
+2. Get latest ``main`` branch: ``git pull``.
 3. Go to ``test`` folder using command: ``cd test``
 4. In line just after defining ``terraformOptions``, add ``defer`` with ``terraform.Destroy``
 5. Execute tests using command: ``go test -v -timeout 30m``

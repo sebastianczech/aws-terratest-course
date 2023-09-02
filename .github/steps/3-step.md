@@ -13,7 +13,7 @@ _Nice work finishing first test in Terratest :sparkles:_
 ### :keyboard: Activity: Verify if Terraform configuration is idempotent
 
 1. [Read Terratest documentation about function InitAndApplyAndIdempotent()](https://pkg.go.dev/github.com/gruntwork-io/terratest/modules/terraform#InitAndApplyAndIdempotent)
-2. Checkout remote branch using command: ``git checkout -b step3-idempotent origin/step3-idempotent``.
+2. Get latest ``main`` branch: ``git pull``.
 3. Go to ``test`` folder using command: ``cd test``
 4. Replace ``InitAndApply`` by ``InitAndApplyAndIdempotent`` function
 5. Execute tests using command: ``go test -v -timeout 30m``

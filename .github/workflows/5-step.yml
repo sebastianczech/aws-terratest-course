@@ -1,16 +1,16 @@
 name: Step 5, Check if there is defer with destroy
 
-# This step triggers after push change into branch `step5-destroy`
+# This step triggers after push change into branch `main`
 # This workflow updates from step 5 to step X.
 
-# This will run every time we create push a commit to `step5-destroy`.
+# This will run every time we create push a commit to `main`.
 # Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
   workflow_dispatch:
   # Add events that trigger this workflow.
   push:
     branches:
-      - step5-destroy
+      - main
 
 # Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
@@ -36,6 +36,9 @@ jobs:
     name: Check if there is defer with destroy
     needs: get_current_step
     runs-on: ubuntu-latest
+    if: >-
+      ${{ !github.event.repository.is_template
+          && needs.get_current_step.outputs.current_step == 5 }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -77,4 +80,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           from_step: 5
           to_step: X
-          branch_name: finish
+          branch_name: main

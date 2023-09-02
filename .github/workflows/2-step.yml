@@ -1,16 +1,16 @@
 name: Step 2, Check in Terratest output values
 
-# This step triggers after push change into branch `step2-output`
+# This step triggers after push change into branch `main`
 # This workflow updates from step 2 to step 3.
 
-# This will run every time we create push a commit to `step2-output`.
+# This will run every time we create push a commit to `main`.
 # Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
   workflow_dispatch:
   # Add events that trigger this workflow.
   push:
     branches:
-      - step2-output
+      - main
 
 # Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
@@ -36,6 +36,9 @@ jobs:
     name: Check in Terratest output values
     needs: get_current_step
     runs-on: ubuntu-latest
+    if: >-
+      ${{ !github.event.repository.is_template
+          && needs.get_current_step.outputs.current_step == 2 }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -77,4 +80,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           from_step: 2
           to_step: 3
-          branch_name: step3-idempotent
+          branch_name: main

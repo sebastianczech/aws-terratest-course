@@ -1,16 +1,16 @@
 name: Step 4, Check if variables values were overridden
 
-# This step triggers after push change into branch `step4-override`
+# This step triggers after push change into branch `main`
 # This workflow updates from step 4 to step 5.
 
-# This will run every time we create push a commit to `step4-override`.
+# This will run every time we create push a commit to `main`.
 # Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
   workflow_dispatch:
   # Add events that trigger this workflow
   push:
     branches:
-      - step4-override
+      - main
 
 # Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
@@ -36,6 +36,9 @@ jobs:
     name: Check if variables values were overridden
     needs: get_current_step
     runs-on: ubuntu-latest
+    if: >-
+      ${{ !github.event.repository.is_template
+          && needs.get_current_step.outputs.current_step == 4 }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -77,4 +80,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           from_step: 4
           to_step: 5
-          branch_name: step5-destroy
+          branch_name: main

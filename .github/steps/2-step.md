@@ -13,7 +13,7 @@ _You did step 1 and you updated Terraform code correctly! :tada:_
 ### :keyboard: Activity: Check in Terratest output values
 
 1. [Read Terratest quickstart](https://terratest.gruntwork.io/docs/getting-started/quick-start/)
-2. Checkout remote branch using command: ``git checkout -b step2-output origin/step2-output``.
+2. Get latest ``main`` branch: ``git pull``.
 3. Go to ``test`` folder using command: ``cd test``
 4. Initialize Go module using command: ``go mod init github.com/YOUR_ACCOUNT/aws-terratest-course`` (remember to replace ``YOUR_ACCOUNT`` with your account name)
 5. Add missing and remove unused modules using command: ``go mod tidy``
