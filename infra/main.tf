@@ -60,6 +60,7 @@ data "aws_kms_key" "lambda_kms" {
 
 ### Lambda URL
 resource "aws_lambda_function_url" "lambda_endpoint" {
+  function_name      = aws_lambda_function.lambda_func.function_name
   authorization_type = "AWS_IAM" # "NONE"
 
   cors {
@@ -116,6 +117,7 @@ data "aws_iam_user" "iam_user_seba" {
 resource "aws_lambda_permission" "allow_iam_user" {
   statement_id           = "AllowExecutionForIamUser"
   action                 = "lambda:InvokeFunctionUrl"
+  function_name          = aws_lambda_function.lambda_func.function_name
   function_url_auth_type = "AWS_IAM"
   principal              = data.aws_iam_user.iam_user_seba.arn
 }
