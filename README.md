@@ -39,6 +39,8 @@ In this course, you will:
 4. Override variables values defined in `terraform.tfvars`
 5. Destroy whole infrastructure after finishing tests.
 
+<font color="orange">Please note, that IaC used in course is using resources from [AWS Free Tier](https://aws.amazon.com/free/)</font>.
+
 ### How to start this course
 
 <!-- For start course, run in JavaScript:
